@@ -1,8 +1,7 @@
 package es.brunofort.action;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -11,8 +10,8 @@ import es.brunofort.maze.Point;
 @Service
 public class ActionService {
 
-	public Set<Point> generatePathByActions(Point begin, ArrayList<ActionType> actions, Integer maxHeight, Integer maxWidth) throws InvalidPathException{
-		Set<Point> path = new HashSet<Point>();
+	public List<Point> generatePathByActions(Point begin, ArrayList<ActionType> actions, Integer maxHeight, Integer maxWidth) throws InvalidPathException{
+		List<Point> path = new ArrayList<Point>();
 
 		if(begin != null && actions != null && !actions.isEmpty()) {
 			path.add(begin);

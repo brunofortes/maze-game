@@ -7,12 +7,10 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,23 +27,26 @@ public class Maze implements Serializable {
 	@Column(nullable=false)
 	private String name;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "maze_points", joinColumns = @JoinColumn(name = "maze_id"), inverseJoinColumns = @JoinColumn(name = "point_id"))
+	@OneToMany(mappedBy = "maze", cascade = CascadeType.ALL, orphanRemoval=true, fetch=FetchType.LAZY)
 	private Set<Point> points = new HashSet<Point>();
-	
-	@ManyToOne
-	@JoinColumn(name="id_point_begin", nullable=false)
-	private Point begin;
-
-	@ManyToOne
-	@JoinColumn(name="id_point_end", nullable=false)
-	private Point end;
 	
 	@Column(nullable=false)
 	private Integer height;
 
 	@Column(nullable=false)
 	private Integer width;
+	
+	@Column(name="begin_x", nullable=false)
+	private Integer beginX;
+
+	@Column(name="begin_y", nullable=false)
+	private Integer beginY;
+	
+	@Column(name="end_x", nullable=false)
+	private Integer endX;
+
+	@Column(name="end_y", nullable=false)
+	private Integer endY;
 	
 	public Long getId() {
 		return id;
@@ -78,22 +79,6 @@ public class Maze implements Serializable {
 		this.points.add(point);
 	}
 
-	public Point getBegin() {
-		return begin;
-	}
-
-	public void setBegin(Point begin) {
-		this.begin = begin;
-	}
-
-	public Point getEnd() {
-		return end;
-	}
-
-	public void setEnd(Point end) {
-		this.end = end;
-	}
-
 	public Integer getHeight() {
 		return height;
 	}
@@ -109,5 +94,45 @@ public class Maze implements Serializable {
 	public void setWidth(Integer width) {
 		this.width = width;
 	}
-	
+
+	public Point getBegin() {
+		return new Point(beginX, beginY);
+	}
+
+	public Point getEnd() {
+		return new Point(endX, endY);
+	}
+
+	public Integer getBeginX() {
+		return beginX;
+	}
+
+	public void setBeginX(Integer beginX) {
+		this.beginX = beginX;
+	}
+
+	public Integer getBeginY() {
+		return beginY;
+	}
+
+	public void setBeginY(Integer beginY) {
+		this.beginY = beginY;
+	}
+
+	public Integer getEndX() {
+		return endX;
+	}
+
+	public void setEndX(Integer endX) {
+		this.endX = endX;
+	}
+
+	public Integer getEndY() {
+		return endY;
+	}
+
+	public void setEndY(Integer endY) {
+		this.endY = endY;
+	}
+
 }

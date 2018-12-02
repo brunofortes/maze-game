@@ -10,8 +10,12 @@ public class MazeDataTest {
 		maze.setId(1l);
 		maze.setName("Demo Maze 1");
 		
-		maze.setBegin(new Point(1, 1));
-		maze.setEnd(new Point(3, 1));
+		maze.setBeginX(1);
+		maze.setBeginY(1);
+		maze.setEndX(3);
+		maze.setEndY(1);
+		maze.setHeight(20);
+		maze.setWidth(20);
 		
 		maze.addPoint(new Point(2, 1));
 		maze.addPoint(new Point(2, 3));

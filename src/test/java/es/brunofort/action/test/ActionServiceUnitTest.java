@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class ActionServiceUnitTest {
 		actions.add(ActionType.RIGHT);
 		actions.add(ActionType.RIGHT);
 
-		Set<Point> path = actionService.generatePathByActions(begin, actions, 10, 10);
+		List<Point> path = actionService.generatePathByActions(begin, actions, 10, 10);
 		
 		assertTrue(path.contains(expectedEnd));
 		assertEquals(3, path.size());
@@ -51,7 +51,7 @@ public class ActionServiceUnitTest {
 		actions.add(ActionType.LEFT);
 		actions.add(ActionType.LEFT);
 
-		Set<Point> path = actionService.generatePathByActions(begin, actions, 10, 10);
+		List<Point> path = actionService.generatePathByActions(begin, actions, 10, 10);
 		
 		assertTrue(path.contains(expectedEnd));
 		assertEquals(3, path.size());
@@ -66,7 +66,7 @@ public class ActionServiceUnitTest {
 		actions.add(ActionType.TOP);
 		actions.add(ActionType.TOP);
 
-		Set<Point> path = actionService.generatePathByActions(begin, actions, 10, 10);
+		List<Point> path = actionService.generatePathByActions(begin, actions, 10, 10);
 		
 		assertTrue(path.contains(expectedEnd));
 		assertEquals(3, path.size());
@@ -81,7 +81,7 @@ public class ActionServiceUnitTest {
 		actions.add(ActionType.DOWN);
 		actions.add(ActionType.DOWN);
 
-		Set<Point> path = actionService.generatePathByActions(begin, actions, 10, 10);
+		List<Point> path = actionService.generatePathByActions(begin, actions, 10, 10);
 		
 		assertTrue(path.contains(expectedEnd));
 		assertEquals(3, path.size());

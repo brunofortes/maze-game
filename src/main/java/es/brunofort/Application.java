@@ -1,3 +1,5 @@
 package es.brunofort;
 
-public interface Application {}
+public interface Application {
+
+}

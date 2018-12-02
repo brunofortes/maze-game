@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -32,6 +34,9 @@ public class MazeServiceUnitTest {
 
 	@Mock
 	private MazeRepository mazeRepositoryMock;
+
+	@Rule
+    public ExpectedException thrown = ExpectedException.none();	
 	
 	@Before
 	public void init() {
@@ -41,7 +46,7 @@ public class MazeServiceUnitTest {
 	
 	@Test
 	public void shouldReturnAMazeWhenFindById() {
-		Mockito.when(mazeRepositoryMock.findOne(Mockito.anyLong())).thenReturn(MazeDataTest.generateDemoMaze());
+		Mockito.when(mazeRepositoryMock.findByIdFetchingPoints(Mockito.anyLong())).thenReturn(MazeDataTest.generateDemoMaze());
 		Maze maze = mazeService.findById(1l);
 		
 		assertEquals(Long.valueOf(1L), maze.getId());
@@ -53,7 +58,7 @@ public class MazeServiceUnitTest {
 		actions.add(ActionType.RIGHT);
 		actions.add(ActionType.RIGHT);
 
-		Mockito.when(mazeRepositoryMock.findOne(Mockito.anyLong())).thenReturn(MazeDataTest.generateDemoMaze());
+		Mockito.when(mazeRepositoryMock.findByIdFetchingPoints(Mockito.anyLong())).thenReturn(MazeDataTest.generateDemoMaze());
 		Maze maze = mazeService.findById(1l);
 		
 		Set<Point> collisions = mazeService.validateActionsForMazeAndReturnCollisions(actions, maze);
@@ -66,13 +71,28 @@ public class MazeServiceUnitTest {
 		actions.add(ActionType.TOP);
 		actions.add(ActionType.RIGHT);
 		actions.add(ActionType.RIGHT);
+		actions.add(ActionType.DOWN);
 
-		Mockito.when(mazeRepositoryMock.findOne(Mockito.anyLong())).thenReturn(MazeDataTest.generateDemoMaze());
+		Mockito.when(mazeRepositoryMock.findByIdFetchingPoints(Mockito.anyLong())).thenReturn(MazeDataTest.generateDemoMaze());
 		Maze maze = mazeService.findById(1l);
 		
 		Set<Point> collisions = mazeService.validateActionsForMazeAndReturnCollisions(actions, maze);
 		assertEquals(0, collisions.size());
 	}
 
+	@Test
+	public void invalidPathBecauseNotFindMazeEnd() throws InvalidPathException {
+		ArrayList<ActionType> actions = new ArrayList<ActionType>();
+		actions.add(ActionType.TOP);
+		actions.add(ActionType.RIGHT);
+		actions.add(ActionType.RIGHT);
+
+		Mockito.when(mazeRepositoryMock.findByIdFetchingPoints(Mockito.anyLong())).thenReturn(MazeDataTest.generateDemoMaze());
+		Maze maze = mazeService.findById(1l);
+		
+		thrown.expect(InvalidPathException.class);
+
+		mazeService.validateActionsForMazeAndReturnCollisions(actions, maze);
+	}
 	
 }

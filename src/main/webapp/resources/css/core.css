@@ -1,19 +1,173 @@
-body {
-    padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-    padding-bottom: 40px;
-    background-color: #f5f5f5;
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon/icomoon.eot?lfgcxj');
+  src:  url('../fonts/icomoon/icomoon.eot?lfgcxj#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon/icomoon.ttf?lfgcxj') format('truetype'),
+    url('../fonts/icomoon/icomoon.woff?lfgcxj') format('woff'),
+    url('../fonts/icomoon/icomoon.svg?lfgcxj#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.form-narrow {
-    max-width: 490px;
-    padding: 19px 29px 29px;
-    margin: 0 auto 20px;
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-reload:before {
+  content: "\e900";
+}
+.icon-arrow-thick-down:before {
+  content: "\e901";
+}
+.icon-arrow-thick-left:before {
+  content: "\e902";
+}
+.icon-arrow-thick-right:before {
+  content: "\e903";
+}
+.icon-arrow-thick-up:before {
+  content: "\e904";
+}
+.icon-location:before {
+  content: "\e905";
+}
+.icon-trophy:before {
+  content: "\e906";
+}
+.icon-spinner11:before {
+  content: "\e984";
+}
+.icon-cross:before {
+  content: "\ea0f";
+}
+.icon-checkmark:before {
+  content: "\ea10";
+}
+
+body {
     background-color: #fff;
-    border: 1px solid #e5e5e5;
-    -webkit-border-radius: 5px;
-       -moz-border-radius: 5px;
-            border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.btn-dialog{
+	padding: 15px 35px;
+	font-size: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+/* Maze */
+#maze{
+	border: 3px solid #FF6C0E;
+	border-radius: 5px; 
+	background-color: #EEE;
+	box-shadow: 1px 1px 10px #FF6C0E inset;
+}
+
+.maze-name{
+	font-weight: bold;
+	color: #FF6C0E;
+}
+
+.ul-x,
+.ul-y{
+	padding: 0px;
+}
+
+.ul-x li,
+.ul-y li{
+	list-style: none;
+	font-size: 0px;
+}
+
+.ul-x li{
+	display: inline-block;
+}
+
+.li-x.mark{
+	background-color: #FF6C0E;
+	box-shadow: 2px 2px 10px #FF6C0E;
+}
+
+.li-x.selected{
+	background-color: #CCC; 
+}
+
+.li-x.current{
+	background-color: #FFF;
+	box-shadow: 2px 2px 10px #337AB7;
+	border-radius: 5px;
+}
+
+.li-x.mark.selected{
+	background-color: #F00;
+}
+
+.li-x.end{
+	overflow: visible;
+	background-color: #337AB7;
+	box-shadow: 2px 2px 10px #337AB7;
+}
+
+/* Controls */
+#controls{
+	padding: 10px 0px;	
+}
+
+#controls .line{
+	padding: 1px 0px;	
+	width : 126px;
+	text-align: center;
+}
+
+/* Modal Submit e Result */
+.modal-header,
+.modal-body{
+	text-align: center;
+	border-bottom: 0px;
+}
+
+#modalSubmit .message{
+	font-weight: bold;
+	color: #FF6C0E;
+}
+
+#modalResult .modal-body{
+	overflow: auto;
+}
+
+#modalResult .success-message{
+	font-weight: bold;
+	color: #06B80F;
+}
+
+#modalResult .fail-message{
+	font-weight: bold;
+	color: #FF6C0E;
+}
+
+/* Error Container */
+.error-container .fail-message{
+	font-weight: bold;
+	color: #FF6C0E;
+}
+
+.error-container{
+	text-align: center;
+	padding-bottom: 20px; 
+}
+
+.error-container .link{
+	font-size: 20px;
+	font-weight: bold;
 }

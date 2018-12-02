@@ -2,6 +2,7 @@ package es.brunofort.maze;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,18 @@ public class MazeService {
 	}
 
 	public Maze findById(Long id) {
-		return mazeRepository.findOne(id);
+		return mazeRepository.findByIdFetchingPoints(id);
+	}
+	
+	public Long selectRandoId() {
+		return mazeRepository.selectRandoId();
 	}
 	
 	public Set<Point> validateActionsForMazeAndReturnCollisions(ArrayList<ActionType> actions, Maze maze) throws InvalidPathException{
-		Set<Point> path = actionService.generatePathByActions(maze.getBegin(), actions, maze.getHeight(), maze.getWidth());
+		List<Point> path = actionService.generatePathByActions(maze.getBegin(), actions, maze.getHeight(), maze.getWidth());
+		if(!path.get(path.size() - 1).equals(maze.getEnd())) {
+			throw new InvalidPathException();
+		}		
 		Set<Point> intersection = new HashSet<Point>(path);
 		intersection.retainAll(maze.getPoints());
 		return intersection;

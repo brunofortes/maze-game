@@ -5,21 +5,89 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <script src="../../../resources/js/jquery.min.js" th:src="@{/resources/js/jquery.min.js}"></script>
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/layout :: header"></div>
-<div class="container">
-    <!-- /* Handle the flash message */-->
-    <th:block th:if="${message != null}">
-        <!-- /* The message code is returned from the @Controller */ -->
-        <div th:replace="fragments/components :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
-    </th:block>
-    <p class="lead text-center">
-        Welcome to the Spring <span th:text="${springVersion}">0.0.0</span> MVC Quickstart application!
-    </p>
+	<div class="container">
+	    <!-- /* Handle the flash message */-->
+	    <th:block th:if="${message != null}">
+	        <div th:replace="fragments/components :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}})">&nbsp;</div>
+	    </th:block>
+	
+		<h3 class="maze-name" th:text="${maze.name}"></h3>
+		<input type="hidden" id="input-id-maze" th:value="${maze.id}"/>
+		
+		<div id="maze">
+			<ul class="ul-y">
+				<li th:each="i : ${#numbers.sequence(maze.height, 1, -1)}" th:id="'li-y-'+${i}" class="li-y">
+					<ul class="ul-x">
+						<li th:each="j : ${#numbers.sequence(1, maze.width, 1)}" th:id="'li-x-'+${j}" class="li-x" data-passed="0">
+						</li>
+					</ul>		
+				</li>		
+			</ul>    
+		</div>
+		<div id="row">
+			<p class="tip-keyboard pull-right" th:text="#{message.useKeyboard}"/>    
+		</div>
+		
+		<div id="controls">
+			<div class="line">
+				<button type="button" class="btn btn-primary btn-top icon-arrow-thick-up"></button>
+			</div>
+			<div class="line">
+				<button type="button" class="btn btn-primary btn-left icon-arrow-thick-left pull-left"></button>
+				<button type="button" class="btn btn-primary btn-down icon-arrow-thick-down"></button>
+				<button type="button" class="btn btn-primary btn-right icon-arrow-thick-right pull-right"></button>
+			</div>
+		</div>
+	</div>
+	
     <div th:replace="fragments/layout :: footer"></div>
-</div>
+
+	<!-- Modal Submit -->
+	<div class="modal fade" id="modalSubmit" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      	<h2 class="message" th:text="#{message.mazeCompleted}"></h2>
+	      </div>
+	      <div class="modal-body">
+			<button type="button" class="btn btn-primary btn-submit icon-checkmark btn-dialog"> <span th:text="#{button.submit}">Submit</span></button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Modal Result -->
+	<div class="modal fade" id="modalResult" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+		  <div id="div-maze-result"></div>	
+	    </div>
+	  </div>
+	</div>
+
+    <script src="../../../resources/js/jquery.min.js" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script src="../../../resources/js/maze.js" th:src="@{/resources/js/maze.js}"></script>
+
+	<script th:inline="javascript">
+		var maze = [[${maze}]];
+	
+		var elementBegin ='#li-y-'+maze.begin.pointY+' #li-x-'+maze.begin.pointX; 
+		$(elementBegin).addClass('current selected');
+		
+		var elementEnd ='#li-y-'+maze.end.pointY+' #li-x-'+maze.end.pointX; 
+		$(elementEnd).addClass('end');
+// 		$(elementEnd).html('<span class="icon-trophy"></span>');
+		
+	    maze.points.forEach(function(point){
+	    	var element ='#li-y-'+point.pointY+' #li-x-'+point.pointX; 
+	    	$(element).addClass('mark');
+	    });
+	    
+	    controlButtons(maze.begin.pointX, maze.begin.pointY, maze.width, maze.height);
+	    resizeMaze(maze.width, maze.height);
+	</script>
 </body>
 </html>

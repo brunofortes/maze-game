@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+</head>
+<body>
+	<div class="fragment-maze-success" th:fragment="result">
+	    <div class="modal-header">
+			<h1 class="success-message" th:if="${success}" th:text="#{message.successCompleted}">Success</h1>
+			<h1 class="fail-message" th:if="${!success}" th:text="#{message.failCompleted}">Fail</h1>
+	    </div>
+	    <div class="modal-body">
+			<a class="btn btn-secondary btn-retry btn-dialog pull-left icon-reload" th:href="@{/{idmaze}(idmaze=${idmaze})}"> <span th:text="#{button.retry}">Submit</span></a>
+			<a class="btn btn-primary btn-next btn-dialog pull-right" th:href="@{/}" th:if="${success}"> <span th:text="#{button.nextMaze}"></span> <span class="icon-arrow-thick-right"></span></a>
+	    	<br/>
+	    </div>		    
+	</div>
+</body>
+</html>

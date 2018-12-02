@@ -6,11 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="point", uniqueConstraints={@UniqueConstraint(columnNames = {"point_x", "point_y"})})
+@Table(name="point", uniqueConstraints={@UniqueConstraint(columnNames = {"point_x", "point_y", "id_maze"})})
 public class Point implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +29,11 @@ public class Point implements Serializable {
 	
 	@Column(name="point_y", nullable=false)
 	private Integer pointY;
+	
+	@JsonIgnore
+	@ManyToOne
+    @JoinColumn(name = "id_maze", nullable=false)
+	private Maze maze;
 
 	public Point() {
 		super();
@@ -58,6 +67,14 @@ public class Point implements Serializable {
 
 	public void setPointY(Integer pointY) {
 		this.pointY = pointY;
+	}
+	
+	public Maze getMaze() {
+		return maze;
+	}
+
+	public void setMaze(Maze maze) {
+		this.maze = maze;
 	}
 
 	@Override
