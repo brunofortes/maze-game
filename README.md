@@ -23,7 +23,6 @@ Is a sample project using Spring MVC, JPA, JUnit/Mockito, with Thymeleaf, Bootst
 * [Spring MVC Quickstart Maven Archetype](https://github.com/brunofortes/spring-mvc-quickstart-archetype)
 * [Spring MVC](http://spring.io/)
 * [Bootstrap](/https://getbootstrap.com/)
-* [Maze generation - Rosetta Code](https://rosettacode.org/wiki/Maze_generation#Java)
 
 ## License
 
